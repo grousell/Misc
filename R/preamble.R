@@ -6,21 +6,17 @@ options(stringsAsFactors=FALSE,
         scipen=999)
 
 # Packages
-library(dplyr)
-library(tidyr)
-library(ggplot2)
+library(tidyverse)
 library(scales)
 library(grid)
 library(gridExtra)
 library(knitr)
-library(stringr)
 library(foreign)
 library(xtable)
-library(lubridate)
+
 
 # Functions
 
-specify_decimal <- function(x, k) format(round(x, k), nsmall=k)
 
 substrRight <- function(x, n){
   sapply(x, function(xx)
@@ -28,13 +24,23 @@ substrRight <- function(x, n){
     )
 }
 
-na.Zero <- function (x) {
+na_zero <- function (x) {
   x[is.na(x)] <- 0
+  return(x)
+}
+
+na_missing <- function (x) {
+  x[is.na(x)] <- "Missing"
   return(x)
 }
 
 trim.leading <- function (x)  sub("^\\s+", "", x)
 trim.trailing <- function (x) sub("\\s+$", "", x)
+
+clean_text <- function (x){
+  x <- gsub("[!@#$%^&()/*?<>.,\\\\]", "", x)
+  return (x)
+}
 
 #------------------------------ ggplot theme and colours
 # For custom board colours
@@ -79,32 +85,4 @@ theme_update(
   legend.key = element_blank()
   )
   
-
-# Theme for tables 
-tableTheme <- ttheme_default(
-  # Use hjust and x to left justify the text
-  # Alternate the row fill colours
-  core = list(bg_params=list(fill=c("grey90", "#B6CBE9")),
-              fg_params=list(hjust=0.5, x=0.5, fontface=1, cex=0.9)),
-  rowhead=list(bg_params=list(fill=c("white", "grey90", "#B6CBE9", "grey90", "#B6CBE9","grey90", "#B6CBE9",
-                                     "grey90", "#B6CBE9", "grey90", "#B6CBE9","grey90", "#B6CBE9",
-                                     "grey90", "#B6CBE9", "grey90", "#B6CBE9","grey90", "#B6CBE9",
-                                     "grey90", "#B6CBE9", "grey90", "#B6CBE9","grey90", "#B6CBE9",
-                                     "grey90", "#B6CBE9", "grey90", "#B6CBE9","grey90", "#B6CBE9",
-                                     "grey90", "#B6CBE9", "grey90", "#B6CBE9","grey90", "#B6CBE9",
-                                     "grey90", "#B6CBE9", "grey90", "#B6CBE9","grey90", "#B6CBE9",
-                                     "grey90", "#B6CBE9", "grey90", "#B6CBE9","grey90", "#B6CBE9",
-                                     "grey90", "#B6CBE9", "grey90", "#B6CBE9","grey90", "#B6CBE9",
-                                     "grey90", "#B6CBE9", "grey90", "#B6CBE9","grey90", "#B6CBE9",
-                                     "grey90", "#B6CBE9", "grey90", "#B6CBE9","grey90", "#B6CBE9",
-                                     "grey90", "#B6CBE9", "grey90", "#B6CBE9","grey90", "#B6CBE9",
-                                     "grey90", "#B6CBE9", "grey90", "#B6CBE9","grey90", "#B6CBE9",
-                                     "grey90", "#B6CBE9", "grey90", "#B6CBE9","grey90", "#B6CBE9",
-                                     "grey90", "#B6CBE9", "grey90", "#B6CBE9","grey90", "#B6CBE9",
-                                     "grey90", "#B6CBE9", "grey90", "#B6CBE9","grey90", "#B6CBE9"), 
-                              col = "white"),
-               fg_params=list(hjust=0, x=0, fontface=1, cex=0.9)),
-  # Change column header to white text and blue background
-  colhead = list(fg_params=list(hjust=0.5, x=0.5,  col="white", fontface=2, cex=0.9),
-                 bg_params=list(fill="#007CC2")))
 
