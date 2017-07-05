@@ -5,7 +5,7 @@ options(stringsAsFactors=FALSE,
         digits=4,
         scipen=999)
 
-# Packages
+# Packages -------------------------------------------------------------------------------
 library(tidyverse)
 library(scales)
 library(grid)
@@ -15,8 +15,7 @@ library(foreign)
 library(xtable)
 
 
-# Functions
-
+# Functions ----------------------------------------------------------------
 
 substrRight <- function(x, n){
   sapply(x, function(xx)
@@ -42,7 +41,7 @@ clean_text <- function (x){
   return (x)
 }
 
-#------------------------------ ggplot theme and colours
+# ggplot theme and colours --------------------------------------------------------------
 # For custom board colours
 
 gedsbGreen <- "#59AD46"
@@ -51,12 +50,15 @@ gedsbGreen2 <- "#8CE079"
 gedsbBlue2 <- "#51A2EC"
 
 
-# Colour Palette - GEDSB Colours for charts
+# Colour Palette - GEDSB Colours for charts -------------------------------------------------
 
 palette3 <- c("#59AD46", "#173B32", "#04559F")
 palette4 <- c("grey60","#59AD46","#04559F", "#8ecb80")
 palette5 <- c("#04559F", "#1E6FB9", "#3788D2", "#51A2Ec", "#6ABBFF")
 palette5 <- c("#6ABBFF", "#51A2Ec", "#3788D2",  "#1E6FB9","#04559F" )
+
+
+# ggplot Theme ------------------------------------------------------------
 
 theme_update(
   plot.margin= unit(c(0.25,0.25,0.25,0.25), "cm"),
@@ -64,7 +66,7 @@ theme_update(
   
   panel.background = element_rect(fill="NA"),
   panel.border = element_blank(),
-  panel.margin = unit(1, "lines"),
+  panel.spacing = unit(1, "lines"),
   
   panel.grid.major.y = element_line(colour="grey90"),
   panel.grid.minor.y = element_line(colour="NA"),
