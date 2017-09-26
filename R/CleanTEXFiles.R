@@ -2,6 +2,7 @@
 
 
 # Code to clean TEX files when creating .rnw and .rmd ---------------------
+# Removes all .tex, .log and .aux files in working directory
 
 files.tex <- list.files(pattern %in% c("\\.tex$", "\\.log$", "\\.aux$"))
 
