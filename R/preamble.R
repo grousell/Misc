@@ -6,13 +6,14 @@ options(stringsAsFactors=FALSE,
         scipen=999)
 
 # Packages -------------------------------------------------------------------------------
-library(tidyverse)
-library(scales)
-library(grid)
-library(gridExtra)
-library(knitr)
-library(foreign)
-library(xtable)
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(readxl))
+suppressPackageStartupMessages(library(scales))
+suppressPackageStartupMessages(library(grid))
+suppressPackageStartupMessages(library(gridExtra))
+suppressPackageStartupMessages(library(knitr))
+suppressPackageStartupMessages(library(foreign))
+suppressPackageStartupMessages(library(xtable))
 
 
 # Functions ----------------------------------------------------------------
