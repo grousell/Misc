@@ -1,0 +1,797 @@
+\documentclass[12pt]{article}
+
+\usepackage{fontspec}
+\setmainfont{Arial}
+
+\usepackage{anysize} %%For use with marginsize
+\marginsize{1cm}{1cm}{1.5cm}{1.2cm} %%Left, Right, Top,BOttom
+
+\usepackage{color}
+\definecolor {MyBlue}{cmyk}{.95,.75,.05,0}
+
+\usepackage{sectsty}
+\sectionfont{\color{MyBlue}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{fancyhdr}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{enumitem}
+\setlist{nosep} % or \setlist{noitemsep} to leave space around whole list
+
+\usepackage{multicol}
+%\usepackage{minipage}
+\usepackage{float} %% Used with ,table.placement="H" - sets tables "Here" to avoid problems with page/line breaks
+\usepackage{wallpaper} %%For ULCornerWallPaper - headers and footers
+\usepackage[none]{hyphenat}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{pdflscape} % Rotates individual pages
+\linespread{1.25}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+%\pagenumbering{gobble} % Turns off page numbering
+
+\thispagestyle{empty}
+
+<<loadData,echo=FALSE,message=FALSE,warning=FALSE>>=
+
+palette2 <- c(gedsbBlue, gedsbGreen)
+
+#SchName <-"192880_Ecole Confederation"
+
+
+df <- eleT1 %>%
+  filter (schoolCode == SchName)
+
+schoolName <- df$School[7]
+
+# SchName <- "Cedarland"
+
+engT1 <- engPercT1 %>%
+  filter (School == schoolName |
+            School == "GEDSB")
+
+engT2 <- engPercT2 %>%
+  filter (School == schoolName |
+            School == "GEDSB")
+
+
+# French
+frenchT1 <- frenchPercT1 %>%
+  filter (School == schoolName |
+            School == "GEDSB")
+
+frenchT2 <- frenchPercT2 %>%
+  filter (School == schoolName |
+            School == "GEDSB")
+
+# Math
+mathT1 <- mathPercT1 %>%
+  filter (School == schoolName |
+            School == "GEDSB")
+
+mathT2 <- mathPercT2 %>%
+  filter (School == schoolName |
+            School == "GEDSB")
+
+#Social Studes / Science
+
+socStudiesT1 <- socStudiesPercT1 %>%
+  filter (School == schoolName |
+            School == "GEDSB")
+
+socStudiesT2 <- socStudiesPercT2 %>%
+  filter (School == schoolName |
+            School == "GEDSB")
+
+# Arts / Phys Ed
+
+artPhysEdT1 <- artPhysEdPercT1 %>%
+  filter (School == schoolName |
+            School == "GEDSB")
+
+artPhysEdT2 <- artPhysEdPercT2 %>%
+  filter (School == schoolName |
+            School == "GEDSB")
+  
+learnSkillsT1 <- RCsummarylongPercT1Learn %>%
+  filter (School == schoolName |
+            School == "GEDSB")
+
+learnSkillsT2 <- RCsummarylongPercT2Learn %>%
+  filter (School == schoolName |
+            School == "GEDSB")
+
+@
+
+\pagestyle{fancy}
+\lhead{\bfseries \Sexpr{Year}}
+\rhead{\bfseries \Sexpr{schoolName}}
+\cfoot{\thepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TITLE PAGE
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width = 17cm]{C:/Users/grousell/Desktop/Logos/GrandErieBannerCOLOUR} % Board Logo
+\end{figure}
+
+\vspace{5cm}
+
+\Huge\textcolor {MyBlue}{\Sexpr{Year} Report Card Marks - By Grade}\par
+
+\Huge\textcolor {MyBlue}{\Sexpr{schoolName}}\par
+
+
+\vspace{2cm}
+\Large\textcolor {MyBlue} {Report prepared by:} \par
+\Large\textcolor{MyBlue} {Greg Rousell, System Research Leader}
+
+
+\vspace{7cm}
+\begin{center}
+\textcolor {MyBlue}  {\small \textit{For further information on the details of this report contact Greg Rousell: greg,rousell@granderie.ca}}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Page 2
+\newpage
+\LRCornerWallPaper{0.44}{C:/Users/grousell/Desktop/Logos/footer1} 
+\LLCornerWallPaper{0.2}{C:/Users/grousell/Desktop/Logos/GEDSB_LOGO_Colour}
+
+\section*{\textcolor{MyBlue}{\Sexpr{Year} Report Card Data}}
+
+\large
+This report includes both Term 1 and Term 2 Report Card data for \Sexpr{schoolName} and Grand Erie DSB.  The bar charts show the percentage of students at Levels 1 through 4 by grade and subject/strand, and compares your school to all students in the board. The subsequent ``heatmap`` shows the number of students achievieng below Level 1, by grade and subject/strand.  
+
+\vspace{0.5cm}
+\normalsize
+Note: \textit {100\% of  students have achieved from Level R to Level 4.  This first summary (bar charts) presents those students achieveing between Level 1 and Level 4 - percentages may not add up to 100. The second summary (heatmaps) shows students achieving below Level 1 - red cells indicate the number of students below Level 1.}
+
+\large
+\vspace{0.5cm}
+The data presented is intended as a "big picture" look at your school in order to inspire discussion and discovery. Before digging deeper, some questions to consider:
+
+\vspace{0.5cm}
+\begin{itemize}
+  \item Were there any courses/strands taught in only one term?
+  \item What seems to be surprising or unexpected? 
+  \item What important points seem to ``pop-out`` from the data? 
+  \item Are there patterns or trends appearing?
+  \item What does the distribution of marks look like? Is it skewed in either direction? (i.e. are there more students at Levels 1-2 or Levels 3-4?)
+  \item What else do you need to know?
+\end{itemize}
+
+% Possble Questions
+% Are there any subjects where the red is greater than the blue
+% Are there any subjects where the red and blue are equal?
+% Are there any subjects where there is no red (art, drama, gym)
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Page 3
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% ---------------English
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section*{English Language - Term 1}
+
+<<plot1,echo=FALSE,fig.width=8, fig.height=9.5,warning=FALSE>>=
+
+ggplot(engT1, aes(x=Levels,y=Num, fill=School))+              
+  geom_bar(stat="identity", position = "dodge") +
+  geom_text (aes (label = Num), position = position_dodge(width = 0.9), vjust = -0.5, size = 2) + 
+  facet_grid(Grade~Course,
+             scales = "free",
+             space="free") + 
+  scale_y_continuous(limits=c(0, 125),
+                     breaks=c(1,25,50,75,100)) +
+  scale_fill_manual (values = palette2) +  
+  ggtitle("Percentage of Students at Levels 1 to 4") + 
+  ylab("Percent") + 
+  xlab("") + 
+  theme(axis.text.x=element_text(size = 9, angle = 90),
+        axis.text.y = element_text (size = 6),
+        plot.title=element_text(size=rel(1.5)),
+        legend.position = ("bottom")) 
+
+
+@
+
+
+
+\newpage
+
+\section*{English Language - Term 2}
+
+<<plot2,echo=FALSE,fig.width=8, fig.height=9.5,warning=FALSE>>=
+
+ggplot(engT2, aes(x=Levels,y=Num, fill=School))+              
+  geom_bar(stat="identity", position = "dodge") +
+  geom_text (aes (label = Num), position = position_dodge(width = 0.9), vjust = -0.5, size = 2) + 
+  facet_grid(Grade~Course,
+             scales = "free",
+             space="free") + 
+  scale_y_continuous(limits=c(0, 125),
+                     breaks=c(1,25,50,75,100)) +
+  scale_fill_manual (values = palette2) +  
+  ggtitle("Percentage of Students at Levels 1 to 4") + 
+  ylab("Percent") + 
+  xlab("") + 
+  theme(axis.text.x=element_text(size = 9, angle = 90),
+        axis.text.y = element_text (size = 6),
+        plot.title=element_text(size=rel(1.5)),
+        legend.position = ("bottom")) 
+
+
+@
+
+
+\newpage
+\section*{English Language - Term 1}
+
+<<plot3,echo=FALSE,fig.width=8, fig.height=4.25,warning=FALSE>>=
+
+countHeat <- engCountsT1 %>%
+  filter (School == schoolName)
+
+
+ggplot(countHeat, aes(Course, Grade))+        #calling the heatmap plot
+  geom_tile(color="black") +                             #setting black border around plot
+  geom_tile(aes(fill = counts.R), color="black") + 
+  scale_y_discrete(limits = rev(levels(countHeat$Grade))) + 
+  geom_text(aes(fill=countHeat$counts.R,           #use values       
+                label = countHeat$counts.R)) +        #label cells with value 
+  scale_fill_gradient2(low="white",                       #low values are white
+                      high="red") +                      #high values are red
+  labs(x = "", y = "", title = "Number of Students Below Level 1") + 
+  theme(axis.ticks.x = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.text.x = element_text(angle=90,             #rotating labels so it is easier to read
+                                   hjust=1,
+                                   size = 10),
+        panel.background=element_rect(fill='white',      #set the background to white from gray
+                                      colour='white'),
+        plot.title=element_text(size=rel(1.25))) + 
+  guides(fill=FALSE)     #change the legend title
+
+@
+
+\section*{English Language - Term 2}
+
+<<plot4,echo=FALSE,fig.width=8, fig.height=4.25,warning=FALSE>>=
+
+countHeat <- engCountsT2 %>%
+  filter (School == schoolName)
+
+
+ggplot(countHeat, aes(Course, Grade))+        #calling the heatmap plot
+  geom_tile(color="black") +                             #setting black border around plot
+  geom_tile(aes(fill = counts.R), color="black") + 
+  scale_y_discrete(limits = rev(levels(countHeat$Grade))) + 
+  geom_text(aes(fill=countHeat$counts.R,           #use values       
+                label = countHeat$counts.R)) +        #label cells with value 
+  scale_fill_gradient2(low="white",                       #low values are white
+                      high="red") +                      #high values are red
+  labs(x = "", y = "", title = "Number of Students Below Level 1") + 
+  theme(axis.ticks.x = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.text.x = element_text(angle=90,             #rotating labels so it is easier to read
+                                   hjust=1,
+                                   size = 10),
+        panel.background=element_rect(fill='white',      #set the background to white from gray
+                                      colour='white'),
+        plot.title=element_text(size=rel(1))) + 
+  guides(fill=FALSE)     #change the legend title
+
+@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% ---------------French
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+
+\section*{French Language - Term 1}
+
+<<plot5,echo=FALSE,fig.width=8, fig.height=9.5,warning=FALSE>>=
+
+ggplot(frenchT1, aes(x=Levels,y=Num, fill=School))+              
+  geom_bar(stat="identity", position = "dodge") +
+  geom_text (aes (label = Num), position = position_dodge(width = 0.9), vjust = -0.5, size = 2) + 
+  facet_grid(Grade~Course,
+             scales = "free",
+             space="free") + 
+  scale_y_continuous(limits=c(0, 125),
+                     breaks=c(1,25,50,75,100)) +
+  scale_fill_manual (values = palette2) +  
+  ggtitle("Percentage of Students at Levels 1 to 4") + 
+  ylab("Percent") + 
+  xlab("") + 
+  theme(axis.text.x=element_text(size = 9, angle = 90),
+        axis.text.y = element_text (size = 6),
+        plot.title=element_text(size=rel(1.5)),
+        legend.position = ("bottom")) 
+
+
+@
+
+\newpage
+
+\section*{French Language - Term 2}
+
+<<plot6,echo=FALSE,fig.width=8, fig.height=9.5,warning=FALSE>>=
+
+ggplot(frenchT2, aes(x=Levels,y=Num, fill=School))+              
+  geom_bar(stat="identity", position = "dodge") +
+  geom_text (aes (label = Num), position = position_dodge(width = 0.9), vjust = -0.5, size = 2) + 
+  facet_grid(Grade~Course,
+             scales = "free",
+             space="free") + 
+  scale_y_continuous(limits=c(0, 125),
+                     breaks=c(1,25,50,75,100)) +
+  scale_fill_manual (values = palette2) +  
+  ggtitle("Percentage of Students at Levels 1 to 4") + 
+  ylab("Percent") + 
+  xlab("") + 
+  theme(axis.text.x=element_text(size = 9, angle = 90),
+        axis.text.y = element_text (size = 6),
+        plot.title=element_text(size=rel(1.5)),
+        legend.position = ("bottom")) 
+
+
+@
+
+
+\newpage
+\section*{French Language - Term 1}
+
+<<plot7,echo=FALSE,fig.width=8, fig.height=4.25,warning=FALSE>>=
+
+countHeat <- frenchCountsT1 %>%
+  filter (School == schoolName)
+
+
+ggplot(countHeat, aes(Course, Grade))+        #calling the heatmap plot
+  geom_tile(color="black") +                             #setting black border around plot
+  geom_tile(aes(fill = counts.R), color="black") + 
+  scale_y_discrete(limits = rev(levels(countHeat$Grade))) + 
+  geom_text(aes(fill=countHeat$counts.R,           #use values       
+                label = countHeat$counts.R)) +        #label cells with value 
+  scale_fill_gradient2(low="white",                       #low values are white
+                      high="red") +                      #high values are red
+  labs(x = "", y = "", title = "Number of Students Below Level 1") + 
+  theme(axis.ticks.x = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.text.x = element_text(angle=90,             #rotating labels so it is easier to read
+                                   hjust=1,
+                                   size = 10),
+        panel.background=element_rect(fill='white',      #set the background to white from gray
+                                      colour='white'),
+        plot.title=element_text(size=rel(1.25))) + 
+  guides(fill=FALSE)     #change the legend title
+
+@
+
+\section*{French Language - Term 2}
+
+<<plot8,echo=FALSE,fig.width=8, fig.height=4.25,warning=FALSE>>=
+
+countHeat <- frenchCountsT2 %>%
+  filter (School == schoolName)
+
+
+ggplot(countHeat, aes(Course, Grade))+        #calling the heatmap plot
+  geom_tile(color="black") +                             #setting black border around plot
+  geom_tile(aes(fill = counts.R), color="black") + 
+  scale_y_discrete(limits = rev(levels(countHeat$Grade))) + 
+  geom_text(aes(fill=countHeat$counts.R,           #use values       
+                label = countHeat$counts.R)) +        #label cells with value 
+  scale_fill_gradient2(low="white",                       #low values are white
+                      high="red") +                      #high values are red
+  labs(x = "", y = "", title = "Number of Students Below Level 1") + 
+  theme(axis.ticks.x = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.text.x = element_text(angle=90,             #rotating labels so it is easier to read
+                                   hjust=1,
+                                   size = 10),
+        panel.background=element_rect(fill='white',      #set the background to white from gray
+                                      colour='white'),
+        plot.title=element_text(size=rel(1))) + 
+  guides(fill=FALSE)     #change the legend title
+
+@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% ---------------Math
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+\section*{Mathematics - Term 1}
+
+<<plot9,echo=FALSE,fig.width=8, fig.height=9.5,warning=FALSE>>=
+
+ggplot(mathT1, aes(x=Levels,y=Num, fill=School))+              
+  geom_bar(stat="identity", position = "dodge") +
+  geom_text (aes (label = Num), position = position_dodge(width = 0.9), vjust = -0.5, size = 2) + 
+  facet_grid(Grade~Course,
+             scales = "free",
+             space="free") + 
+  scale_y_continuous(limits=c(0, 125),
+                     breaks=c(1,25,50,75,100)) +
+  scale_fill_manual (values = palette2) +  
+  ggtitle("Percentage of Students at Levels 1 to 4") + 
+  ylab("Percent") + 
+  xlab("") + 
+  theme(axis.text.x=element_text(size = 9, angle = 90),
+        axis.text.y = element_text (size = 6),
+        plot.title=element_text(size=rel(1.5)),
+        legend.position = ("bottom")) 
+
+
+@
+
+
+
+\newpage
+
+\section*{Mathematics - Term 2}
+
+<<plot10,echo=FALSE,fig.width=8, fig.height=9.5,warning=FALSE>>=
+
+ggplot(mathT2, aes(x=Levels,y=Num, fill=School))+              
+  geom_bar(stat="identity", position = "dodge") +
+  geom_text (aes (label = Num), position = position_dodge(width = 0.9), vjust = -0.5, size = 2) + 
+  facet_grid(Grade~Course,
+             scales = "free",
+             space="free") + 
+  scale_y_continuous(limits=c(0, 125),
+                     breaks=c(1,25,50,75,100)) +
+  scale_fill_manual (values = palette2) +  
+  ggtitle("Percentage of Students at Levels 1 to 4") + 
+  ylab("Percent") + 
+  xlab("") + 
+  theme(axis.text.x=element_text(size = 9, angle = 90),
+        axis.text.y = element_text (size = 6),
+        plot.title=element_text(size=rel(1.5)),
+        legend.position = ("bottom")) 
+
+
+@
+
+
+\newpage
+\section*{Mathematics - Term 1}
+
+<<plot11,echo=FALSE,fig.width=8, fig.height=4.25,warning=FALSE>>=
+
+countHeat <- mathCountsT1 %>%
+  filter (School == schoolName)
+
+
+ggplot(countHeat, aes(Course, Grade))+        #calling the heatmap plot
+  geom_tile(color="black") +                             #setting black border around plot
+  geom_tile(aes(fill = counts.R), color="black") + 
+  scale_y_discrete(limits = rev(levels(countHeat$Grade))) + 
+  geom_text(aes(fill=countHeat$counts.R,           #use values       
+                label = countHeat$counts.R)) +        #label cells with value 
+  scale_fill_gradient2(low="white",                       #low values are white
+                      high="red") +                      #high values are red
+  labs(x = "", y = "", title = "Number of Students Below Level 1") + 
+  theme(axis.ticks.x = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.text.x = element_text(angle=90,             #rotating labels so it is easier to read
+                                   hjust=1,
+                                   size = 10),
+        panel.background=element_rect(fill='white',      #set the background to white from gray
+                                      colour='white'),
+        plot.title=element_text(size=rel(1.25))) + 
+  guides(fill=FALSE)     #change the legend title
+
+@
+
+\section*{Mathematics - Term 2}
+
+<<plot12,echo=FALSE,fig.width=8, fig.height=4.25,warning=FALSE>>=
+
+countHeat <- mathCountsT2 %>%
+  filter (School == schoolName)
+
+
+ggplot(countHeat, aes(Course, Grade))+        #calling the heatmap plot
+  geom_tile(color="black") +                             #setting black border around plot
+  geom_tile(aes(fill = counts.R), color="black") + 
+  scale_y_discrete(limits = rev(levels(countHeat$Grade))) + 
+  geom_text(aes(fill=countHeat$counts.R,           #use values       
+                label = countHeat$counts.R)) +        #label cells with value 
+  scale_fill_gradient2(low="white",                       #low values are white
+                      high="red") +                      #high values are red
+  labs(x = "", y = "", title = "Number of Students Below Level 1") + 
+  theme(axis.ticks.x = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.text.x = element_text(angle=90,             #rotating labels so it is easier to read
+                                   hjust=1,
+                                   size = 10),
+        panel.background=element_rect(fill='white',      #set the background to white from gray
+                                      colour='white'),
+        plot.title=element_text(size=rel(1))) + 
+  guides(fill=FALSE)     #change the legend title
+
+@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% ---------------Science / Social Studies
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+
+\section*{Science \& Social Studies - Term 1}
+
+<<plot13,echo=FALSE,fig.width=8, fig.height=9.5,warning=FALSE>>=
+ggplot(socStudiesT1, aes(x=Levels,y=Num, fill=School))+              
+  geom_bar(stat="identity", position = "dodge") +
+  geom_text (aes (label = Num), position = position_dodge(width = 0.9), vjust = -0.5, size = 2) + 
+  facet_grid(Grade~Course,
+             scales = "free",
+             space="free") + 
+  scale_y_continuous(limits=c(0, 125),
+                     breaks=c(1,25,50,75,100)) +
+  scale_fill_manual (values = palette2) +  
+  ggtitle("Percentage of Students at Levels 1 to 4") + 
+  ylab("Percent") + 
+  xlab("") + 
+  theme(axis.text.x=element_text(size = 9, angle = 90),
+        axis.text.y = element_text (size = 6),
+        plot.title=element_text(size=rel(1.5)),
+        legend.position = ("bottom")) 
+@
+
+\newpage
+
+\section*{Science \& Social Studies - Term 2}
+
+<<plot14,echo=FALSE,fig.width=8, fig.height=9.5,warning=FALSE>>=
+ggplot(socStudiesT2, aes(x=Levels,y=Num, fill=School))+              
+  geom_bar(stat="identity", position = "dodge") +
+  geom_text (aes (label = Num), position = position_dodge(width = 0.9), vjust = -0.5, size = 2) + 
+  facet_grid(Grade~Course,
+             scales = "free",
+             space="free") + 
+  scale_y_continuous(limits=c(0, 125),
+                     breaks=c(1,25,50,75,100)) +
+  scale_fill_manual (values = palette2) +  
+  ggtitle("Percentage of Students at Levels 1 to 4") + 
+  ylab("Percent") + 
+  xlab("") + 
+  theme(axis.text.x=element_text(size = 9, angle = 90),
+        axis.text.y = element_text (size = 6),
+        plot.title=element_text(size=rel(1.5)),
+        legend.position = ("bottom")) 
+@
+
+\newpage
+\section*{Science \& Social Studies - Term 1}
+
+<<plot15,echo=FALSE,fig.width=8, fig.height=4.25,warning=FALSE>>=
+
+countHeat <- socStudiesCountsT1 %>%
+  filter (School == schoolName)
+
+
+ggplot(countHeat, aes(Course, Grade))+        #calling the heatmap plot
+  geom_tile(color="black") +                             #setting black border around plot
+  geom_tile(aes(fill = counts.R), color="black") + 
+  scale_y_discrete(limits = rev(levels(countHeat$Grade))) + 
+  geom_text(aes(fill=countHeat$counts.R,           #use values       
+                label = countHeat$counts.R)) +        #label cells with value 
+  scale_fill_gradient2(low="white",                       #low values are white
+                      high="red") +                      #high values are red
+  labs(x = "", y = "", title = "Number of Students Below Level 1") + 
+  theme(axis.ticks.x = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.text.x = element_text(angle=90,             #rotating labels so it is easier to read
+                                   hjust=1,
+                                   size = 10),
+        panel.background=element_rect(fill='white',      #set the background to white from gray
+                                      colour='white'),
+        plot.title=element_text(size=rel(1.25))) + 
+  guides(fill=FALSE)     #change the legend title
+
+@
+
+\section*{Science \& Social Studies - Term 2}
+
+<<plot16,echo=FALSE,fig.width=8, fig.height=4.25,warning=FALSE>>=
+
+countHeat <- socStudiesCountsT2 %>%
+  filter (School == schoolName)
+
+
+ggplot(countHeat, aes(Course, Grade))+        #calling the heatmap plot
+  geom_tile(color="black") +                             #setting black border around plot
+  geom_tile(aes(fill = counts.R), color="black") + 
+  scale_y_discrete(limits = rev(levels(countHeat$Grade))) + 
+  geom_text(aes(fill=countHeat$counts.R,           #use values       
+                label = countHeat$counts.R)) +        #label cells with value 
+  scale_fill_gradient2(low="white",                       #low values are white
+                      high="red") +                      #high values are red
+  labs(x = "", y = "", title = "Number of Students Below Level 1") + 
+  theme(axis.ticks.x = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.text.x = element_text(angle=90,             #rotating labels so it is easier to read
+                                   hjust=1,
+                                   size = 10),
+        panel.background=element_rect(fill='white',      #set the background to white from gray
+                                      colour='white'),
+        plot.title=element_text(size=rel(1))) + 
+  guides(fill=FALSE)     #change the legend title
+
+@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% ---------------Phys Ed / Arts
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage
+
+\section*{Physical Education \& Arts - Term 1}
+
+<<plot17,echo=FALSE,fig.width=8, fig.height=9.5,warning=FALSE>>=
+ggplot(artPhysEdT1, aes(x=Levels,y=Num, fill=School))+              
+  geom_bar(stat="identity", position = "dodge") +
+  geom_text (aes (label = Num), position = position_dodge(width = 0.9), vjust = -0.5, size = 2) + 
+  facet_grid(Grade~Course,
+             scales = "free",
+             space="free") + 
+  scale_y_continuous(limits=c(0, 125),
+                     breaks=c(1,25,50,75,100)) +
+  scale_fill_manual (values = palette2) +  
+  ggtitle("Percentage of Students at Levels 1 to 4") + 
+  ylab("Percent") + 
+  xlab("") + 
+  theme(axis.text.x=element_text(size = 9, angle = 90),
+        axis.text.y = element_text (size = 6),
+        plot.title=element_text(size=rel(1.5)),
+        legend.position = ("bottom")) 
+@
+
+\newpage
+
+\section*{Physical Education \& Arts - Term 2}
+
+<<plot18,echo=FALSE,fig.width=8, fig.height=9.5,warning=FALSE>>=
+ggplot(artPhysEdT2, aes(x=Levels,y=Num, fill=School))+              
+  geom_bar(stat="identity", position = "dodge") +
+  geom_text (aes (label = Num), position = position_dodge(width = 0.9), vjust = -0.5, size = 2) + 
+  facet_grid(Grade~Course,
+             scales = "free",
+             space="free") + 
+  scale_y_continuous(limits=c(0, 125),
+                     breaks=c(1,25,50,75,100)) +
+  scale_fill_manual (values = palette2) +  
+  ggtitle("Percentage of Students at Levels 1 to 4") + 
+  ylab("Percent") + 
+  xlab("") + 
+  theme(axis.text.x=element_text(size = 9, angle = 90),
+        axis.text.y = element_text (size = 6),
+        plot.title=element_text(size=rel(1.5)),
+        legend.position = ("bottom")) 
+@
+
+\newpage
+\section*{Physical Education \& Arts - Term 1}
+
+<<plot19,echo=FALSE,fig.width=8, fig.height=4.25,warning=FALSE>>=
+
+countHeat <- artPhysEdCountsT1 %>%
+  filter (School == schoolName)
+
+
+ggplot(countHeat, aes(Course, Grade))+        #calling the heatmap plot
+  geom_tile(color="black") +                             #setting black border around plot
+  geom_tile(aes(fill = counts.R), color="black") + 
+  scale_y_discrete(limits = rev(levels(countHeat$Grade))) + 
+  geom_text(aes(fill=countHeat$counts.R,           #use values       
+                label = countHeat$counts.R)) +        #label cells with value 
+  scale_fill_gradient2(low="white",                       #low values are white
+                      high="red") +                      #high values are red
+  labs(x = "", y = "", title = "Number of Students Below Level 1") + 
+  theme(axis.ticks.x = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.text.x = element_text(angle=90,             #rotating labels so it is easier to read
+                                   hjust=1,
+                                   size = 10),
+        panel.background=element_rect(fill='white',      #set the background to white from gray
+                                      colour='white'),
+        plot.title=element_text(size=rel(1.25))) + 
+  guides(fill=FALSE)     #change the legend title
+
+@
+
+\section*{Physical Education \& Arts - Term 2}
+
+<<plot20,echo=FALSE,fig.width=8, fig.height=4.25,warning=FALSE>>=
+
+countHeat <- artPhysEdCountsT2 %>%
+  filter (School == schoolName)
+
+
+ggplot(countHeat, aes(Course, Grade))+        #calling the heatmap plot
+  geom_tile(color="black") +                             #setting black border around plot
+  geom_tile(aes(fill = counts.R), color="black") + 
+  scale_y_discrete(limits = rev(levels(countHeat$Grade))) + 
+  geom_text(aes(fill=countHeat$counts.R,           #use values       
+                label = countHeat$counts.R)) +        #label cells with value 
+  scale_fill_gradient2(low="white",                       #low values are white
+                      high="red") +                      #high values are red
+  labs(x = "", y = "", title = "Number of Students Below Level 1") + 
+  theme(axis.ticks.x = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.text.x = element_text(angle=90,             #rotating labels so it is easier to read
+                                   hjust=1,
+                                   size = 10),
+        panel.background=element_rect(fill='white',      #set the background to white from gray
+                                      colour='white'),
+        plot.title=element_text(size=rel(1))) + 
+  guides(fill=FALSE)     #change the legend title
+
+@
+
+\newpage
+\section*{Learning Skills - Term 1}
+
+<<plot21,echo=FALSE,fig.width=8, fig.height=9.5,warning=FALSE>>=
+ggplot(learnSkillsT1, aes(x=Levels,y=Num, fill=School))+              
+  geom_bar(stat="identity", position = "dodge") +
+  geom_text (aes (label = Num), position = position_dodge(width = 0.9), vjust = -0.5, size = 2) + 
+  facet_grid(Grade~Skill,
+             scales = "free",
+             space="free") + 
+  scale_y_continuous(limits=c(0, 125),
+                     breaks=c(1,25,50,75,100)) +
+  scale_fill_manual (values = palette2) +  
+  ggtitle("Percentage of Students at Each Level") + 
+  ylab("Percent") + 
+  xlab("") + 
+  theme(axis.text.x=element_text(size = 9, angle = 90, hjust=1),
+        axis.text.y = element_text (size = 6),
+        plot.title=element_text(size=rel(1.5)),
+        legend.position = ("bottom")) 
+@
+
+\newpage
+\section*{Learning Skills - Term 2}
+
+<<plot22,echo=FALSE,fig.width=8, fig.height=9.5,warning=FALSE>>=
+ggplot(learnSkillsT2, aes(x=Levels,y=Num, fill=School))+              
+  geom_bar(stat="identity", position = "dodge") +
+  geom_text (aes (label = Num), position = position_dodge(width = 0.9), vjust = -0.5, size = 2) + 
+  facet_grid(Grade~Skill,
+             scales = "free",
+             space="free") + 
+  scale_y_continuous(limits=c(0, 125),
+                     breaks=c(1,25,50,75,100)) +
+  scale_fill_manual (values = palette2) +  
+  ggtitle("Percentage of Students at Each Level") + 
+  ylab("Percent") + 
+  xlab("") + 
+  theme(axis.text.x=element_text(size = 9, angle = 90, hjust=1),
+        axis.text.y = element_text (size = 6),
+        plot.title=element_text(size=rel(1.5)),
+        legend.position = ("bottom")) 
+@
+
+
+
+
+\end{document}
