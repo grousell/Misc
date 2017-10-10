@@ -63,7 +63,8 @@ palette5 <- c("#6ABBFF", "#51A2Ec", "#3788D2",  "#1E6FB9","#04559F" )
 
 theme_update(
   plot.margin= unit(c(0.25,0.25,0.25,0.25), "cm"),
-  title = element_text (colour="black", size=12),
+  title = element_text (colour="black", size=12,hjust = 0.5),
+  subtitle = element_text (colour="black", size=10,hjust = 0.5),
   
   panel.background = element_rect(fill="NA"),
   panel.border = element_blank(),
